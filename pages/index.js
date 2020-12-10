@@ -1,65 +1,73 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Box, Flex, Text, Spacer } from "@chakra-ui/react";
+import Head from "next/head";
+import EmailFormNetlify from "../components/EmailFormNetlify";
+import Footer from "../components/footer";
+import Nav from "../components/nav";
+import { fetchAPI, getStrapiMedia } from "../lib/api";
+import marked from "marked";
+import Testimonial from "../components/Testimonial";
 
-export default function Home() {
+export default function Home({ global, homepage, emailform, testimonials }) {
+  let shareImage = getStrapiMedia(global.logo);
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Box bg={homepage.backgroundColor}>
+      <Box maxWidth={1024} mx="auto">
+        <Head>
+          <title>{homepage.title}</title>
+          <link rel="icon" href={getStrapiMedia(global.favicon)} />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+          <meta property="og:title" content={homepage.title} />
+          <meta name="twitter:title" content={homepage.title} />
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+          <meta name="description" content={homepage.description} />
+          <meta property="og:description" content={homepage.description} />
+          <meta name="twitter:description" content={homepage.description} />
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <meta property="og:image" content={shareImage} />
+          <meta name="twitter:image" content={shareImage} />
+          <meta name="image" content={shareImage} />
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          <meta name="twitter:card" content="summary_large_image" />
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+        </Head>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+        <Nav global={global} />
+
+        <Flex flexWrap="wrap">
+          <Box w={{ lg: "50%", sm: "100%" }} px={6} py={4} h="100%">
+            <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
+          </Box>
+          <Box w={{ lg: "50%", sm: "100%" }} px={6} py={4}>
+            <EmailFormNetlify emailform={emailform} />
+          </Box>
+        </Flex>
+
+        {testimonials.map((t, index) => (
+          <Flex>
+            {index % 2 !== 0 && <Spacer />}
+            <Testimonial quoter={t.quoter}>
+            <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
+            </Testimonial>
+          </Flex>
+        ))}
+
+        <Footer global={global} />
+      </Box>
+    </Box>
+  );
+}
+
+export async function getStaticProps() {
+  const [global, homepage, emailform, links, testimonials] = await Promise.all([
+    await fetchAPI("/global"),
+    await fetchAPI("/homepage"),
+    await fetchAPI("/emailform"),
+    await fetchAPI("/links"),
+    await fetchAPI("/testimonials"),
+  ]);
+  global.groupedLinks = links.reduce((hash, obj) => ({ ...hash, [obj["group"]]: (hash[obj["group"]] || []).concat(obj) }), {});
+  return {
+    props: { global, homepage, emailform, testimonials },
+  };
 }
