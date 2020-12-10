@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[template]
+  incoming-hooks = ["strapi-update"]
+
+[template.environment]
+NEXT_PUBLIC_STRAPI_API_URL="https://yourherokuappname.herokuapp.com"
