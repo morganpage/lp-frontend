@@ -41,8 +41,8 @@ const EmailFormNetlify = ({ emailform }) => {
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)} name="contact" data-netlify="true">
         <VStack>
-          <Flex py={4}>
-            <Image image={emailform.image} style={{ paddingRight: "10px" }} />
+          <Flex py={4} align="center">
+            <Image image={emailform.image} style={{ width:"200px", paddingRight: "10px" }} />
             <FormControl isRequired py={2} align="left">
               <Input name="name" placeholder="Your name" ref={register} />
               <Input type="email" name="email" placeholder="Your email" mt={2} ref={register} />

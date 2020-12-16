@@ -10,8 +10,8 @@ import Testimonial from "../components/Testimonial";
 export default function Home({ global, homepage, emailform, testimonials }) {
   let shareImage = getStrapiMedia(global.logo);
   return (
-    <Box bg={homepage.backgroundColor}>
-      <Box maxWidth={1024} mx="auto">
+    <Box bg={homepage.backgroundColor} height="100vh">
+      <Box px={8} pt={8} maxWidth={1280} mx="auto">
         <Head>
           <title>{homepage.title}</title>
           <link rel="icon" href={getStrapiMedia(global.favicon)} />
@@ -35,10 +35,10 @@ export default function Home({ global, homepage, emailform, testimonials }) {
         <Nav global={global} />
 
         <Flex flexWrap="wrap">
-          <Box w={{ lg: "50%", sm: "100%" }} px={6} py={4} h="100%">
+          <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%">
             <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
           </Box>
-          <Box w={{ lg: "50%", sm: "100%" }} px={6} py={4}>
+          <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4}>
             <EmailFormNetlify emailform={emailform} />
           </Box>
         </Flex>
