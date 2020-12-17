@@ -34,7 +34,7 @@ export default function Home({ global, homepage, emailform, testimonials }) {
 
         <Nav global={global} />
 
-        <Flex flexWrap="wrap">
+        <Flex flexWrap="wrap" flexDirection={{lg:"row", sm:"column-reverse"}}>
           <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%">
             <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
           </Box>

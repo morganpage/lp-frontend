@@ -36,25 +36,30 @@ const EmailFormNetlify = ({ emailform }) => {
 
   return (
     <Box bg="white" rounded="lg" boxShadow="md" p={8} m={4}>
-      <Heading as="h2" size="lg">
-        {emailform.title || "Subscribe to our newsletter"}{" "}
-      </Heading>
       <form onSubmit={handleSubmit(onSubmit)} name="contact" data-netlify="true">
         <VStack>
           <Flex py={4} align="center">
-            <Image image={emailform.image} style={{ width:"200px", paddingRight: "10px" }} />
+            <Box w={"100%"}>
+            <Image image={emailform.image} style={{ paddingRight: "10px", objectFit:"contain" }} />
+            </Box>
             <FormControl isRequired py={2} align="left">
+              <Heading mb={8} as="h3" fontSize="1.4em" color={emailform.colorScheme && `${emailform.colorScheme}.600`}>
+                {emailform.title || "Subscribe to our newsletter"}{" "}
+              </Heading>
+
               <Input name="name" placeholder="Your name" ref={register} />
               <Input type="email" name="email" placeholder="Your email" mt={2} ref={register} />
-              {emailform.checkboxText && <Flex fontSize="xs" pt={2} alignItems="flex-start">
-                <Checkbox pt={1} colorScheme={emailform.colorScheme || "teal"} defaultIsChecked></Checkbox>
-                <Text pl={2}>{emailform.checkboxText}</Text>
-              </Flex>}
+              {emailform.checkboxText && (
+                <Flex fontSize="xs" pt={2} alignItems="flex-start">
+                  <Checkbox pt={1} colorScheme={emailform.colorScheme || "teal"} defaultIsChecked></Checkbox>
+                  <Text pl={2}>{emailform.checkboxText}</Text>
+                </Flex>
+              )}
+              <Button mt={8} colorScheme={emailform.colorScheme || "teal"} size="lg" fontSize="xl" fontWeight="bold" type="submit">
+                {emailform.buttonText || "Subscribe"}
+              </Button>
             </FormControl>
           </Flex>
-          <Button colorScheme={emailform.colorScheme || "teal"} size="lg" fontSize="xl" fontWeight="bold" type="submit">
-            {emailform.buttonText || "Subscribe"}
-          </Button>
           <Text fontSize="xs" textAlign="left" pt={4}>
             {emailform.footerText}
           </Text>
