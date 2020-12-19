@@ -8,7 +8,7 @@ import marked from "marked";
 import Testimonial from "../components/Testimonial";
 
 export default function Home({ global, homepage, emailform, testimonials }) {
-  let shareImage = getStrapiMedia(global.logo);
+  let shareImage = getStrapiMedia(homepage.shareImage);
   return (
     <Box bg={homepage.backgroundColor} height="100vh">
       <Box px={8} pt={8} maxWidth={1280} mx="auto">
