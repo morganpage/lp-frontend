@@ -35,14 +35,14 @@ const EmailFormNetlify = ({ emailform }) => {
   };
 
   return (
-    <Box bg="white" rounded="lg" boxShadow="md" p={8} m={4}>
+    <Box bg="white" rounded="lg" boxShadow="md" px={8} m={4}>
       <form onSubmit={handleSubmit(onSubmit)} name="contact" data-netlify="true">
         <VStack>
           <Flex py={4} align="center">
-            <Box w={"100%"}>
+            <Box w={emailform.image ? "100%" : "auto"}>
             <Image image={emailform.image} style={{ paddingRight: "10px", objectFit:"contain" }} />
             </Box>
-            <FormControl isRequired py={2} align="left">
+            <FormControl isRequired py={2} align="center">
               <Heading mb={8} as="h3" fontSize="1.4em" color={emailform.colorScheme && `${emailform.colorScheme}.600`}>
                 {emailform.title || "Subscribe to our newsletter"}{" "}
               </Heading>
