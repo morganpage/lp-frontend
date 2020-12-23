@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 import Nav from "../components/nav";
 import { fetchAPI, getStrapiMedia } from "../lib/api";
 import marked from "marked";
-import Testimonial from "../components/testimonial";
+import Testimonial from "../components/testimonial.js";
 import Image from "../components/image";
 import { useState } from "react";
 
