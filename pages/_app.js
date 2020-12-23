@@ -17,10 +17,10 @@ const theme = extendTheme({
           textDecoration: "underline",
         },
         h1: {
-          fontSize: "4xl",
+          fontSize: "5xl",
           fontWeight: "bold",
           padding: "12px 0 12px 0",
-          lineHeight: "normal"
+          lineHeight: "1.3em"
         },
         h2: {
           fontSize: "2xl",
@@ -39,11 +39,12 @@ const theme = extendTheme({
         },
         p: {
           margin: "0px 0 12px 0",
-          fontSize:"20px",
+          fontSize:"24px",
           lineHeight: "normal"
         },
         ul: {
-          padding: "0px 0 8px 28px"
+          padding: "0px 0 8px 28px",
+          fontSize:"20px"
         }
       },
       ".box": {
