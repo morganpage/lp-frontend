@@ -7,12 +7,13 @@ class MyDocument extends Document {
   }
 
   render() {
+    let fontLink = process.env.NEXT_PUBLIC_FONT_LINK ||"https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap";
     return (
       <Html>
         <Head>
 
           <link rel="preconnect" href="https://fonts.gstatic.com"/>
-          <link href={process.env.NEXT_PUBLIC_FONT_LINK} rel="stylesheet"/>
+          <link href={fontLink} rel="stylesheet"/>
           
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
 

@@ -2,6 +2,7 @@ import { Box, FormControl, Input, Button, Flex, Heading, Text, Checkbox, VStack 
 import { useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Image from "./image";
+import marked from "marked";
 
 const encode = (data) => {
   return Object.keys(data)
@@ -35,24 +36,25 @@ const EmailFormNetlify = ({ emailform }) => {
   };
 
   return (
-    <Box bg="white" rounded="lg" boxShadow="md" px={8} m={4}>
+    <Box bg="white" rounded="lg" boxShadow="md" p={6} m={4}>
       <form onSubmit={handleSubmit(onSubmit)} name="contact" data-netlify="true">
+      <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(emailform.description) }}></div>
         <VStack>
-          <Flex py={4} align="center">
+          <Flex py={0} align="center">
             <Box w={emailform.image ? "100%" : "auto"}>
             <Image image={emailform.image} style={{ paddingRight: "10px", objectFit:"contain" }} />
             </Box>
             <FormControl isRequired py={2} align="center">
               <Heading mb={8} as="h3" fontSize="1.4em" color={emailform.colorScheme && `${emailform.colorScheme}.600`}>
-                {emailform.title || "Subscribe to our newsletter"}{" "}
+                {emailform.title}{" "}
               </Heading>
 
               <Input name="name" placeholder="Your name" ref={register} />
               <Input type="email" name="email" placeholder="Your email" mt={2} ref={register} />
               {emailform.checkboxText && (
-                <Flex fontSize="xs" pt={2} alignItems="flex-start">
+                <Flex fontSize="xs" pt={2} alignItems="flex-start" >
                   <Checkbox pt={1} colorScheme={emailform.colorScheme || "teal"} defaultIsChecked></Checkbox>
-                  <Text pl={2}>{emailform.checkboxText}</Text>
+                  <Text align="left" pl={2}>{emailform.checkboxText}</Text>
                 </Flex>
               )}
               <Button mt={8} colorScheme={emailform.colorScheme || "teal"} size="lg" fontSize="xl" fontWeight="bold" type="submit">

@@ -1,16 +1,17 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
+const fontFamily = process.env.NEXT_PUBLIC_FONT_FAMILY || "'Nunito Sans', sans-serif";
 
 const theme = extendTheme({
   fonts: {
-    body: process.env.NEXT_PUBLIC_FONT_FAMILY,
-    heading: process.env.NEXT_PUBLIC_FONT_FAMILY,
-    mono: process.env.NEXT_PUBLIC_FONT_FAMILY,
+    body: fontFamily,
+    heading: fontFamily,
+    mono: fontFamily,
   },
 
   styles: {
     global: {
-      fontFamily: process.env.NEXT_PUBLIC_FONT_FAMILY,
+      fontFamily: fontFamily,
       ".markdown": {
         a: {
           textDecoration: "underline",
@@ -19,6 +20,7 @@ const theme = extendTheme({
           fontSize: "4xl",
           fontWeight: "bold",
           padding: "12px 0 12px 0",
+          lineHeight: "normal"
         },
         h2: {
           fontSize: "2xl",
@@ -37,7 +39,8 @@ const theme = extendTheme({
         },
         p: {
           margin: "0px 0 12px 0",
-          fontSize:"20px"
+          fontSize:"20px",
+          lineHeight: "normal"
         },
         ul: {
           padding: "0px 0 8px 28px"

@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 export default function Testimonial({ children , quoter }) {
   return (
