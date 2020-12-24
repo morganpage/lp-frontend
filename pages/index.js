@@ -96,6 +96,7 @@ export default function Home({ global, homepage, emailform, testimonials, markup
                   emailform={emailform}
                   onSuccess={() => {
                     setShowSuccess(true);
+                    onOpen();
                   }}
                 />
               </Box>
@@ -169,6 +170,7 @@ export default function Home({ global, homepage, emailform, testimonials, markup
               emailform={emailform}
               onSuccess={() => {
                 setShowSuccess(true);
+                onOpen();
               }}
             />
           </Box>
