@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Spacer, Heading, Button, Link  } from "@chakra-ui/react";
+import { Box, Flex, Text, Spacer, Heading, Button, Link } from "@chakra-ui/react";
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import Head from "next/head";
 import EmailFormNetlify from "../components/EmailFormNetlify";
@@ -58,9 +58,18 @@ export default function Home({ global, homepage, emailform, testimonials, markup
           ) : (
             <Box textAlign="center" p={8}>
               <Heading textColor="#15B4A8">Success...</Heading>
-              <Text fontWeight="bold" pt={8}>Your Free <span style={{color:"#2AD3C7"}}>5 Reasons To add VR to your training Whitepaper</span> will arrive in your email inbox within 5 minutes.</Text>
-              <Text fontWeight="bold" py={8}>While you wait, please answer these super-short questions so that we can determine if we can help.</Text>
-              <Link  _hover ={{textDecoration:"none"}} href="https://dualgoodhealth.typeform.com/to/LtKNJ0IF"><Button  colorScheme={"purple"} px={8}>Start</Button></Link>
+              <Text fontWeight="bold" pt={8}>
+                Your Free <span style={{ color: "#2AD3C7" }}>5 Reasons To add VR to your training Whitepaper</span> will arrive in your
+                email inbox within 5 minutes.
+              </Text>
+              <Text fontWeight="bold" py={8}>
+                While you wait, please answer these super-short questions so that we can determine if we can help.
+              </Text>
+              <Link _hover={{ textDecoration: "none" }} href="https://dualgoodhealth.typeform.com/to/LtKNJ0IF">
+                <Button colorScheme={"purple"} px={8}>
+                  Start
+                </Button>
+              </Link>
             </Box>
           )}
         </ModalContent>
@@ -83,7 +92,12 @@ export default function Home({ global, homepage, emailform, testimonials, markup
                 <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
               </Box>
               <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
-                <EmailFormNetlify emailform={emailform} />
+                <EmailFormNetlify
+                  emailform={emailform}
+                  onSuccess={() => {
+                    setShowSuccess(true);
+                  }}
+                />
               </Box>
             </Flex>
           </Box>
@@ -146,6 +160,17 @@ export default function Home({ global, homepage, emailform, testimonials, markup
                 </Text>
               </Button>
             </Flex>
+          </Box>
+        </Box>
+
+        <Box bgColor="#15B4A8">
+          <Box p={px} maxWidth={"920px"} mx="auto">
+            <EmailFormNetlify
+              emailform={emailform}
+              onSuccess={() => {
+                setShowSuccess(true);
+              }}
+            />
           </Box>
         </Box>
 
