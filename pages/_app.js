@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { withTheme } from "@emotion/react";
 
 
 const theme = extendTheme({
@@ -13,7 +14,7 @@ const theme = extendTheme({
       fontFamily: process.env.NEXT_PUBLIC_FONT_FAMILY,
       ".markdown": {
         a: {
-          textDecoration: "underline",
+          textDecoration: "underline1",
         },
         h1: {
           fontSize: "4xl",
@@ -55,6 +56,32 @@ const theme = extendTheme({
         p: {
           fontSize:"2xl"
         }
+      },
+      ".card" : {
+        padding:"20px",
+        backgroundColor:"white",
+        boxShadow:"3px 3px 8px",
+        cursor:"pointer",
+        borderRadius:"5px"
+      },
+      ".card:hover" : {
+        boxShadow:"5px 5px 10px",
+        cursor:"pointer"
+      },
+      ".card:active" : {
+        boxShadow:"5px 5px 10px",
+        cursor:"pointer"
+      },
+      ".button" : { 
+        fontWeight:"600",
+        textDecoration:"none",
+        color:"white",
+        backgroundColor:"#319795",
+        padding:"8px 18px",
+        borderRadius:"6px"
+      },
+      ".button:hover" : {
+        backgroundColor:"#2C7A7B",
       }
     },
   },

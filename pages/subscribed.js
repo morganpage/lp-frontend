@@ -1,15 +1,13 @@
-import { Box, Flex, Text, Spacer } from "@chakra-ui/react";
+import { Box, Flex,  Spacer,  } from "@chakra-ui/react";
 import Head from "next/head";
-import EmailFormNetlify from "../components/EmailFormNetlify";
 import Footer from "../components/footer";
 import Nav from "../components/nav";
 import { fetchAPI, getStrapiMedia } from "../lib/api";
 import marked from "marked";
 import Testimonial from "../components/Testimonial";
 
-export default function Home({ global, homepage, emailform, testimonials }) {
+export default function Subscribed({ global, homepage, markups, testimonials }) {
   let shareImage = getStrapiMedia(homepage.shareImage);
-  
   return (
     <Box bg={homepage.backgroundColor} height="100%">
       <Box px={8} pt={8} maxWidth={1280} mx="auto">
@@ -29,26 +27,17 @@ export default function Home({ global, homepage, emailform, testimonials }) {
           <meta name="image" content={shareImage} />
 
           <meta name="twitter:card" content="summary_large_image" />
-
-
         </Head>
 
         <Nav global={global} />
 
-        <Flex flexWrap="wrap" flexDirection={{lg:"row", sm:"column-reverse"}}>
-          <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%">
-            <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
-          </Box>
-          <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
-            <EmailFormNetlify emailform={emailform} />
-          </Box>
-        </Flex>
+        {markups.map( (markup,index) => (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
         {testimonials.map((t, index) => (
           <Flex key={index}>
             {index % 2 !== 0 && <Spacer />}
             <Testimonial quoter={t.quoter}>
-            <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
+              <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
             </Testimonial>
           </Flex>
         ))}
@@ -60,15 +49,15 @@ export default function Home({ global, homepage, emailform, testimonials }) {
 }
 
 export async function getStaticProps() {
-  const [global, homepage, emailform, links, testimonials] = await Promise.all([
+  const [global, homepage, markups, links, testimonials] = await Promise.all([
     await fetchAPI("/global"),
     await fetchAPI("/homepage"),
-    await fetchAPI("/emailform"),
+    await fetchAPI("/markups"),
     await fetchAPI("/links"),
     await fetchAPI("/testimonials"),
   ]);
   global.groupedLinks = links.reduce((hash, obj) => ({ ...hash, [obj["group"]]: (hash[obj["group"]] || []).concat(obj) }), {});
   return {
-    props: { global, homepage, emailform, testimonials },
+    props: { global, homepage, markups, testimonials },
   };
 }

@@ -2,6 +2,7 @@ import { Box, FormControl, Input, Button, Flex, Heading, Text, Checkbox, VStack 
 import { useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Image from "./image";
+import { useRouter } from 'next/router';
 
 const encode = (data) => {
   return Object.keys(data)
@@ -12,6 +13,7 @@ const encode = (data) => {
 const EmailFormNetlify = ({ emailform }) => {
   const { register, handleSubmit } = useForm();
   const toast = useToast();
+  const router = useRouter();
   const onSubmit = (data, e) => {
     // console.log(data);
     fetch("/", {
@@ -27,6 +29,7 @@ const EmailFormNetlify = ({ emailform }) => {
           duration: 9000,
           isClosable: true,
         });
+        router.push("/subscribed");
       })
       .catch((error) => alert(error));
 
