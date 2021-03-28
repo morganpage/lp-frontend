@@ -38,7 +38,7 @@ const EmailFormNetlify = ({ emailform }) => {
   };
 
   return (
-    <Box bg="white" rounded="lg" boxShadow="md" px={8} m={4}>
+    <Box bg="white" rounded="lg" boxShadow="md" px={8} m={4} border="8px" borderColor="#ff7c2b" borderRadius="12px">
       <form onSubmit={handleSubmit(onSubmit)} name="contact" data-netlify="true">
         <VStack>
           <Flex py={4} align="center">
@@ -46,8 +46,14 @@ const EmailFormNetlify = ({ emailform }) => {
             <Image image={emailform.image} style={{ paddingRight: "10px", objectFit:"contain" }} />
             </Box>
             <FormControl isRequired py={2} align="center">
-              <Heading mb={8} as="h3" fontSize="1.4em" color={emailform.colorScheme && `${emailform.colorScheme}.600`}>
+              <Heading mb={2} as="h3" fontSize="2.2em" color={emailform.colorScheme && `${emailform.colorScheme}.600`}>
                 {emailform.title || "Subscribe to our newsletter"}{" "}
+              </Heading>
+              <Heading mb={4} as="h3" fontSize="1.2em" color={"gray.600"}>
+                {emailform.subtitle || "Enter your best email below and I'll send you a FREE Course"}
+              </Heading>
+              <Heading mb={4} as="h3" fontSize="0.8em" color={"gray.500"}>
+                {"Remember to check your spam folder!"}
               </Heading>
 
               <Input name="name" placeholder="Your name" ref={register} />

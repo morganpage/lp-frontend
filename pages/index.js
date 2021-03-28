@@ -7,12 +7,12 @@ import { fetchAPI, getStrapiMedia } from "../lib/api";
 import marked from "marked";
 import Testimonial from "../components/Testimonial";
 
-export default function Home({ global, homepage,markups, emailform, testimonials }) {
+export default function Home({ global, homepage, markups, emailform, testimonials }) {
   let shareImage = getStrapiMedia(homepage.shareImage);
 
   return (
     <Box bg={homepage.backgroundColor} height="100%">
-      <Box px={8} pt={8} maxWidth={1280} mx="auto">
+      <Box pt={8} >
         <Head>
           <title>{homepage.title}</title>
           <link rel="icon" href={getStrapiMedia(global.favicon)} />
@@ -34,21 +34,27 @@ export default function Home({ global, homepage,markups, emailform, testimonials
         </Head>
 
         <Nav global={global} />
+        <Box bg="gray.900">
+          <Box  mt={8} maxWidth={1280} mx="auto" >
 
-        {markups.map( (markup,index) => markup.section ==="IndexTop" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
+            {markups.map((markup, index) => markup.section === "IndexTop" && (<Box key={index} ><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
 
-        <Flex justifyContent="center" flexWrap="wrap" flexDirection={{ lg: "row", sm: "column-reverse" }}>
-          <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%">
-            <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
+            <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection={{ lg: "row", sm: "column-reverse" }}>
+              <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{lg:"block", sm:"none"}}>
+                <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
+              </Box>
+              <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
+                <EmailFormNetlify emailform={emailform} />
+              </Box>
+            </Flex>
+
           </Box>
-          <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
-            <EmailFormNetlify emailform={emailform} />
-          </Box>
-        </Flex>
+        </Box>
 
+        <Box  mt={8} maxWidth={1280} mx="auto" >
+        {markups.map((markup, index) => markup.section === "IndexMiddle" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
-        {markups.map( (markup,index) => markup.section ==="IndexMiddle" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
 
         {testimonials.map((t, index) => (
@@ -59,7 +65,7 @@ export default function Home({ global, homepage,markups, emailform, testimonials
             </Testimonial>
           </Flex>
         ))}
-
+</Box>
         <Footer global={global} />
       </Box>
     </Box>
@@ -67,7 +73,7 @@ export default function Home({ global, homepage,markups, emailform, testimonials
 }
 
 export async function getStaticProps() {
-  const [global, homepage,markups, emailform, links, testimonials] = await Promise.all([
+  const [global, homepage, markups, emailform, links, testimonials] = await Promise.all([
     await fetchAPI("/global"),
     await fetchAPI("/homepage"),
     await fetchAPI("/markups"),
@@ -77,6 +83,6 @@ export async function getStaticProps() {
   ]);
   global.groupedLinks = links.reduce((hash, obj) => ({ ...hash, [obj["group"]]: (hash[obj["group"]] || []).concat(obj) }), {});
   return {
-    props: { global, homepage,markups, emailform, testimonials },
+    props: { global, homepage, markups, emailform, testimonials },
   };
 }
