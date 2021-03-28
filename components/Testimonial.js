@@ -5,11 +5,11 @@ export default function Testimonial({ children , quoter }) {
     <Box bg="white" rounded="lg" boxShadow="md" p={8} m={4} maxWidth={800} >
       <Flex direction="column">
         <Flex py={4}>
-        <Text fontFamily="Palanquin Dark" mx={4} lineHeight={0} position="relative" top={12} fontSize="200px" color="gray.300">
+        <Text fontFamily="Palanquin Dark" mx={4} lineHeight={0} position="relative" top={{lg:12}} fontSize={{base:"100px",lg:"200px"}} color="gray.300">
             “
           </Text>
           <Box>{children}</Box>
-          <Text fontFamily="Palanquin Dark" alignSelf="flex-end" lineHeight={0} position="relative" top={12} fontSize="200px" color="gray.300">
+          <Text fontFamily="Palanquin Dark" alignSelf="flex-end" lineHeight={0} position="relative" top={{base:6,lg:12}} fontSize={{base:"100px",lg:"200px"}} color="gray.300">
           ”
           </Text>
         </Flex>

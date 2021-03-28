@@ -40,8 +40,8 @@ export default function Home({ global, homepage, markups, emailform, testimonial
             {markups.map((markup, index) => markup.section === "IndexTop" && (<Box key={index} ><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
 
-            <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection={{ lg: "row", sm: "column-reverse" }}>
-              <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{lg:"block", sm:"none"}}>
+            <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection={{ lg: "row", base: "column-reverse" }}>
+              <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{lg:"block", base:"none"}}>
                 <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
               </Box>
               <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
