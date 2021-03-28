@@ -61,11 +61,11 @@ const EmailFormNetlify = ({ emailform }) => {
               <Button mt={8} colorScheme={emailform.colorScheme || "teal"} size="lg" fontSize="xl" fontWeight="bold" type="submit">
                 {emailform.buttonText || "Subscribe"}
               </Button>
-            </FormControl>
-          </Flex>
-          <Text fontSize="xs" textAlign="left" pt={4}>
+              <Text fontSize="xs" textAlign="center"  pt={2}>
             {emailform.footerText}
           </Text>
+            </FormControl>
+          </Flex>
         </VStack>
       </form>
     </Box>

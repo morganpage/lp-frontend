@@ -31,7 +31,7 @@ export default function Subscribed({ global, homepage, markups, testimonials }) 
 
         <Nav global={global} />
 
-        {markups.map( (markup,index) => (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
+        {markups.map( (markup,index) => markup.section ==="SubscribedTop" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
         {testimonials.map((t, index) => (
           <Flex key={index}>

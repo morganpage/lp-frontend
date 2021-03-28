@@ -49,6 +49,10 @@ const theme = extendTheme({
         border: "2px solid #333",
         padding: "10px",
       },
+      ".quote":{
+        fontSize:"80px",
+        color:"red.500"
+      },
       hr:{
         margin:"22px 0"
       },
