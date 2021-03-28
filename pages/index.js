@@ -35,13 +35,13 @@ export default function Home({ global, homepage, markups, emailform, testimonial
 
         <Nav global={global} />
         <Box bg="gray.900">
-          <Box  mt={8} maxWidth={1280} mx="auto" >
+          <Box mt={8} maxWidth={1280} mx="auto" >
 
             {markups.map((markup, index) => markup.section === "IndexTop" && (<Box key={index} ><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
 
             <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection={{ lg: "row", base: "column-reverse" }}>
-              <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{lg:"block", base:"none"}}>
+              <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{ lg: "block", base: "none" }}>
                 <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
               </Box>
               <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
@@ -52,20 +52,22 @@ export default function Home({ global, homepage, markups, emailform, testimonial
           </Box>
         </Box>
 
-        <Box  mt={8} maxWidth={1280} mx="auto" >
-        {markups.map((markup, index) => markup.section === "IndexMiddle" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
+        <Box mt={8} maxWidth={1280} mx="auto" px={8}>
+          {markups.map((markup, index) => markup.section === "IndexMiddle" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
+        </Box>
 
+        <Box mt={8} maxWidth={1280} mx="auto" >
 
-        {testimonials.map((t, index) => (
-          <Flex key={index}>
-            {index % 2 !== 0 && <Spacer />}
-            <Testimonial quoter={t.quoter}>
-              <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
-            </Testimonial>
-          </Flex>
-        ))}
-</Box>
+          {testimonials.map((t, index) => (
+            <Flex key={index}>
+              {index % 2 !== 0 && <Spacer />}
+              <Testimonial quoter={t.quoter}>
+                <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
+              </Testimonial>
+            </Flex>
+          ))}
+        </Box>
         <Footer global={global} />
       </Box>
     </Box>
