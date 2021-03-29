@@ -6,71 +6,74 @@ import Nav from "../components/nav";
 import { fetchAPI, getStrapiMedia } from "../lib/api";
 import marked from "marked";
 import Testimonial from "../components/Testimonial";
+import PlausibleProvider from 'next-plausible';
 
 export default function Home({ global, homepage, markups, emailform, testimonials }) {
   let shareImage = getStrapiMedia(homepage.shareImage);
 
   return (
-    <Box bg={homepage.backgroundColor} height="100%">
-      <Box pt={8} >
-        <Head>
-          <title>{homepage.title}</title>
-          <link rel="icon" href={getStrapiMedia(global.favicon)} />
+    <PlausibleProvider domain="morganpage.tech">
+      <Box bg={homepage.backgroundColor} height="100%">
+        <Box pt={8} >
+          <Head>
+            <title>{homepage.title}</title>
+            <link rel="icon" href={getStrapiMedia(global.favicon)} />
 
-          <meta property="og:title" content={homepage.title} />
-          <meta name="twitter:title" content={homepage.title} />
+            <meta property="og:title" content={homepage.title} />
+            <meta name="twitter:title" content={homepage.title} />
 
-          <meta name="description" content={homepage.description} />
-          <meta property="og:description" content={homepage.description} />
-          <meta name="twitter:description" content={homepage.description} />
+            <meta name="description" content={homepage.description} />
+            <meta property="og:description" content={homepage.description} />
+            <meta name="twitter:description" content={homepage.description} />
 
-          <meta property="og:image" content={shareImage} />
-          <meta name="twitter:image" content={shareImage} />
-          <meta name="image" content={shareImage} />
+            <meta property="og:image" content={shareImage} />
+            <meta name="twitter:image" content={shareImage} />
+            <meta name="image" content={shareImage} />
 
-          <meta name="twitter:card" content="summary_large_image" />
-
-
-        </Head>
-
-        <Nav global={global} />
-        <Box bg="gray.900">
-          <Box mt={8} maxWidth={1280} mx="auto" >
-
-            {markups.map((markup, index) => markup.section === "IndexTop" && (<Box key={index} ><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
+            <meta name="twitter:card" content="summary_large_image" />
 
 
-            <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection={{ lg: "row", base: "column-reverse" }}>
-              <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{ lg: "block", base: "none" }}>
-                <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
-              </Box>
-              <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
-                <EmailFormNetlify emailform={emailform} />
-              </Box>
-            </Flex>
+          </Head>
+
+          <Nav global={global} />
+          <Box bg="gray.900">
+            <Box mt={8} maxWidth={1280} mx="auto" >
+
+              {markups.map((markup, index) => markup.section === "IndexTop" && (<Box key={index} ><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
+
+
+              <Flex justifyContent="center" alignItems="center" flexWrap="wrap" flexDirection={{ lg: "row", base: "column-reverse" }}>
+                <Box w={{ lg: "50%", sm: "100%" }} px={0} py={4} h="100%" display={{ lg: "block", base: "none" }}>
+                  <div className="markdown" dangerouslySetInnerHTML={{ __html: marked(homepage.content || "Set up your homepage!") }}></div>
+                </Box>
+                <Box w={{ lg: emailform.image ? "50%" : "33%", sm: "100%" }} px={0} py={4}>
+                  <EmailFormNetlify emailform={emailform} />
+                </Box>
+              </Flex>
+
+            </Box>
+          </Box>
+
+          <Box mt={8} maxWidth={1280} mx="auto" px={8}>
+            {markups.map((markup, index) => markup.section === "IndexMiddle" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
 
           </Box>
+
+          <Box mt={8} maxWidth={1280} mx="auto" >
+
+            {testimonials.map((t, index) => (
+              <Flex key={index}>
+                {index % 2 !== 0 && <Spacer />}
+                <Testimonial quoter={t.quoter}>
+                  <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
+                </Testimonial>
+              </Flex>
+            ))}
+          </Box>
+          <Footer global={global} />
         </Box>
-
-        <Box mt={8} maxWidth={1280} mx="auto" px={8}>
-          {markups.map((markup, index) => markup.section === "IndexMiddle" && (<Box key={index}><div className="markdown" dangerouslySetInnerHTML={{ __html: marked(markup.description) }}></div></Box>))}
-
-        </Box>
-
-        <Box mt={8} maxWidth={1280} mx="auto" >
-
-          {testimonials.map((t, index) => (
-            <Flex key={index}>
-              {index % 2 !== 0 && <Spacer />}
-              <Testimonial quoter={t.quoter}>
-                <div className="markdown testimonial" dangerouslySetInnerHTML={{ __html: marked(t.content) }}></div>
-              </Testimonial>
-            </Flex>
-          ))}
-        </Box>
-        <Footer global={global} />
       </Box>
-    </Box>
+    </PlausibleProvider>
   );
 }
 

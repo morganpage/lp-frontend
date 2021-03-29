@@ -3,6 +3,7 @@ import { useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Image from "./image";
 import { useRouter } from 'next/router';
+import { usePlausible } from 'next-plausible';
 
 const encode = (data) => {
   return Object.keys(data)
@@ -14,8 +15,10 @@ const EmailFormNetlify = ({ emailform }) => {
   const { register, handleSubmit } = useForm();
   const toast = useToast();
   const router = useRouter();
+  const plausible = usePlausible();
   const onSubmit = (data, e) => {
     // console.log(data);
+    plausible('subscribe');
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
