@@ -12,7 +12,7 @@ export default function Home({ global, homepage, markups, emailform, testimonial
   let shareImage = getStrapiMedia(homepage.shareImage);
 
   return (
-    <PlausibleProvider domain="morganpage.tech">
+    <PlausibleProvider domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}>
       <Box bg={homepage.backgroundColor} height="100%">
         <Box pt={8} >
           <Head>
