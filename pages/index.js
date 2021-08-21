@@ -31,7 +31,7 @@ export default function Home({ global, homepage, markups, emailform, testimonial
             <meta name="image" content={shareImage} />
 
             <meta name="twitter:card" content="summary_large_image" />
-
+            <script src="https://app.tryparade.com/bop-component.js" type="module"></script>
 
           </Head>
 
@@ -73,6 +73,7 @@ export default function Home({ global, homepage, markups, emailform, testimonial
           <Footer global={global} />
         </Box>
       </Box>
+      <bop-component storeId='cks908aqa05434ofnghvjqi8v' left='false' ></bop-component>
     </PlausibleProvider>
   );
 }
